@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
+    "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^5.4.2",
     "@stripe/stripe-js": "^2.1.7",
     "dotenv": "^16.3.1",
