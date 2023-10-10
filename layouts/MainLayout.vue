@@ -187,7 +187,7 @@
         </div>
     </div>
 
-    <!-- <Loading v-if="userStore.isLoading" /> -->
+    <Loading v-if="userStore.isLoading" />
 
     <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]" />
     <slot />
@@ -197,8 +197,8 @@
 </template>
 
 <script setup>
-// import { useUserStore } from '~/stores/user';
-// const userStore = useUserStore()
+import { useUserStore } from '~/stores/user';
+const userStore = useUserStore();
 
 // const client = useSupabaseClient()
 // const user = useSupabaseUser()
