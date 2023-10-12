@@ -192,7 +192,7 @@
     <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]" />
     <slot />
 
-    <!-- <Footer v-if="!userStore.isLoading"/> -->
+    <Footer v-if="!userStore.isLoading"/>
 
 </template>
 
@@ -225,4 +225,10 @@ let items = ref(null)
 //     }
 //     searchByName()
 // })
+</script>
+
+<script>
+export default {
+    name: 'MainLayout',
+}
 </script>
