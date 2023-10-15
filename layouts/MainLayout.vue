@@ -140,7 +140,7 @@
                 </div>
 
                 <NuxtLink
-                    to="/"
+                    to="/cart"
                     class="flex items-center"
                 >
                     <button
@@ -165,7 +165,7 @@
                                 rounded-full
                             "
                         >
-                            <!-- {{ userStore.cart.length }} -->
+                            {{ userStore.cart.length }}
                         </span>
                         <div class="min-w-[40px]">
                             <Icon
