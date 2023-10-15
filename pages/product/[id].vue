@@ -132,6 +132,9 @@ const priceComputed = computed(() => {
 })
 
 const addToCart = () => {
-    userStore.cart.push(product.value)
+    userStore.cart.push({
+        ...product.value,
+        isSelected: false
+    })
 }
 </script>
