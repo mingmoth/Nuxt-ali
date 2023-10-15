@@ -3,7 +3,7 @@
         :id="`Product-${product.id}`"
         class="bg-white min-w-[150px] inline-block rounded hover:shadow-[0_0_10px_3px_rgba(0,0,0,0.15)] cursor-pointer"
     >
-        <NuxtLink>
+        <NuxtLink :to="`/product/${product.id}`">
             <img :src="product.url" alt="product-img" class="rounded-t bg-slate-200 aspect-square w-[100%]">
         </NuxtLink>
         <div id="ProductDetails">

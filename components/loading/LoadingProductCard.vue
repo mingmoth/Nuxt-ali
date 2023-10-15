@@ -17,7 +17,7 @@
                 <span class="px-1.5 rounded-sm bg-slate-200 h-[18px] w-[100px]"></span>
             </div>
 
-            <div class="flex items-center mx-1 pt-0.5bg-slate-300 h-[18px] w-[50px]">
+            <div class="flex items-center mx-1 pt-0.5 bg-slate-300 h-[18px] w-[50px]">
             </div>
 
             <div class="m-1 bg-slate-200 h-[18px] w-[50px]">
