@@ -36,7 +36,7 @@ const products = ref(null);
 const isLoading = ref(true);
 
 onBeforeMount(async() => {
-    const { data } = await useFetch('/api/prisma/products');
+    const { data } = await useFetch('/api/prisma/product/products');
     setTimeout(() => {
         products.value = toRaw(data.value)
         isLoading.value = false
