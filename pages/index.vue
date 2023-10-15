@@ -8,9 +8,9 @@
                 class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4"
             >
                 <LoadingProductCard
-                    v-if="isLoading"
+                    v-if="pending"
                     v-for="index in 20"
-                    :key="uniqueId()"
+                    :key="index"
                 />
                 <ProductCard
                     v-if="products"
@@ -24,23 +24,13 @@
 </template>
 
 <script setup>
-import { toRaw, ref } from 'vue';
-// helpers
-import { uniqueId } from '~/helpers/common';
 // components
 import MainLayout from '../layouts/MainLayout.vue';
 import ProductCard from '../components/ProductCard.vue';
 import LoadingProductCard from '../components/loading/LoadingProductCard.vue'
 
-const products = ref(null);
-const isLoading = ref(true);
-
-onBeforeMount(async() => {
-    const { data } = await useFetch('/api/prisma/product/products');
-    setTimeout(() => {
-        products.value = toRaw(data.value)
-        isLoading.value = false
-    }, 1000)
-})
+const { data: products, pending } = await useFetch('/api/prisma/product/products', {
+    server: true,
+});
 
 </script>
