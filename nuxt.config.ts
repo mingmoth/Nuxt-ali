@@ -7,5 +7,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/supabase',
   ],
+  supabase: {
+    redirectOptions: {
+      login: '/auth',
+      callback: '/',
+      exclude: [],
+    }
+  }
 })
