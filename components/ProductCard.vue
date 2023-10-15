@@ -4,7 +4,7 @@
         class="bg-white min-w-[150px] inline-block rounded hover:shadow-[0_0_10px_3px_rgba(0,0,0,0.15)] cursor-pointer"
     >
         <NuxtLink>
-            <img :src="product.url" alt="product-img" class="rounded-t bg-slate-200">
+            <img :src="product.url" alt="product-img" class="rounded-t bg-slate-200 aspect-square w-[100%]">
         </NuxtLink>
         <div id="ProductDetails">
             <span class="flex items-center justify-start gap-3 px-1 pt-1">
@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, toRefs } from 'vue';
 
 const props = defineProps({
     product: {
