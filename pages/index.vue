@@ -24,7 +24,6 @@
 </template>
 
 <script setup>
-import { toRaw } from 'vue';
 // components
 import MainLayout from '../layouts/MainLayout.vue';
 import ProductCard from '../components/ProductCard.vue';
@@ -33,12 +32,14 @@ import LoadingProductCard from '../components/loading/LoadingProductCard.vue'
 let products = ref(null)
 let isLoading = ref(true)
 
+// https://stackoverflow.com/questions/76287288/usefetch-response-value-not-accessible
 onBeforeMount(async () => {
-    const { data } = await useFetch('/api/prisma/product/products')
-    setTimeout(() => {
-        products.value = toRaw(data.value)
-        isLoading.value = false
-    }, 1000)
+    const { data } = await useFetch('/api/prisma/product/products', {
+        onResponse(context) {
+            products.value = context.response._data
+        },
+    })
+    isLoading.value = false
 })
 
 </script>
