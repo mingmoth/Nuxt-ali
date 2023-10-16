@@ -57,7 +57,6 @@
 
 <script setup>
 const client = useSupabaseClient()
-const user = useSupabaseUser()
 
 definePageMeta({ middleware: "auth" })
 

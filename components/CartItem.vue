@@ -19,12 +19,16 @@
             </div>
         </div>
 
-        <img
-            class="rounded-md md:w-[150px] w-[90px]"
-            :src="product.url"
+        <div
+            class="rounded-md md:w-[150px] min-w-[90px] "
         >
+            <img
+                class="rounded-md w-[100%] h-auto aspect-square"
+                :src="product.url"
+            >
+        </div>
 
-        <div class="overflow-hidden pl-2 w-full">
+        <div class="overflow-hidden pl-4 w-full">
             <div class="flex items-center justify-between w-full">
                 <div class="flex items-center justify-between truncate">
                     <span class="sm:block hidden bg-[#FD374F] text-white text-[9px] font-semibold px-1.5 rounded-sm min-w-[80px]">Welcome Deal</span>
