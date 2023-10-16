@@ -13,6 +13,7 @@
                         v-model:input="contactName"
                         inputType="text"
                         :error="error && error.type == 'contactName' ? error.message : ''"
+                        autocomplete-type="given-name"
                     />
 
                     <TextInput
@@ -21,6 +22,7 @@
                         v-model:input="address"
                         inputType="text"
                         :error="error && error.type == 'address' ? error.message : ''"
+                        autocomplete-type="street-address"
                     />
 
                     <TextInput
@@ -29,6 +31,7 @@
                         v-model:input="zipCode"
                         inputType="text"
                         :error="error && error.type == 'zipCode' ? error.message : ''"
+                        autocomplete-type="postal-code"
                     />
 
                     <TextInput
@@ -37,6 +40,7 @@
                         v-model:input="city"
                         inputType="text"
                         :error="error && error.type == 'city' ? error.message : ''"
+                        autocomplete-type="city"
                     />
 
                     <TextInput
@@ -45,6 +49,7 @@
                         v-model:input="country"
                         inputType="text"
                         :error="error && error.type == 'country' ? error.message : ''"
+                        autocomplete-type="country-name"
                     />
 
                     <button
@@ -81,7 +86,9 @@
 import MainLayout from '~/layouts/MainLayout.vue';
 import { useUserStore } from '~/stores/user';
 const userStore = useUserStore()
-// const user = useSupabaseUser()
+const user = useSupabaseUser()
+
+definePageMeta({ middleware: "auth" })
 
 let contactName = ref(null)
 let address = ref(null)
@@ -94,21 +101,21 @@ let isUpdate = ref(false)
 let isWorking = ref(false)
 let error = ref(null)
 
-// watchEffect(async () => {
-//     currentAddress.value = await useFetch(`/api/prisma/get-address-by-user/${user.value.id}`)
+watchEffect(async () => {
+    currentAddress.value = await useFetch(`/api/prisma/address/get/${ user.value.id }`)
 
-//     if (currentAddress.value.data) {
-//         contactName.value = currentAddress.value.data.name
-//         address.value = currentAddress.value.data.address
-//         zipCode.value = currentAddress.value.data.zipcode
-//         city.value = currentAddress.value.data.city
-//         country.value = currentAddress.value.data.country
+    if (currentAddress.value.data) {
+        contactName.value = currentAddress.value.data.name
+        address.value = currentAddress.value.data.address
+        zipCode.value = currentAddress.value.data.zipcode
+        city.value = currentAddress.value.data.city
+        country.value = currentAddress.value.data.country
 
-//         isUpdate.value = true
-//     }
+        isUpdate.value = true
+    }
 
-//     userStore.isLoading = false
-// })
+    userStore.isLoading = false
+})
 
 const submit = async () => {
     isWorking.value = true
@@ -146,35 +153,35 @@ const submit = async () => {
         return
     }
 
-    // if (isUpdate.value) {
-    //     await useFetch(`/api/prisma/update-address/${currentAddress.value.data.id}`, {
-    //         method: 'PATCH',
-    //         body: {
-    //             userId: user.value.id,
-    //             name: contactName.value,
-    //             address: address.value,
-    //             zipCode: zipCode.value,
-    //             city: city.value,
-    //             country: country.value,
-    //         }
-    //     })
+    if (isUpdate.value) {
+        const res = await useFetch(`/api/prisma/address/update/${currentAddress.value.data.id}`, {
+            method: 'PATCH',
+            body: {
+                userId: user.value.id,
+                name: contactName.value,
+                address: address.value,
+                zipCode: zipCode.value,
+                city: city.value,
+                country: country.value,
+            }
+        })
 
-    //     isWorking.value = false
+        isWorking.value = false
 
-    //     return navigateTo('/checkout')
-    // }
+        return navigateTo('/checkout')
+    }
 
-    // await useFetch(`/api/prisma/add-address/`, {
-    //     method: 'POST',
-    //     body: {
-    //         userId: user.value.id,
-    //         name: contactName.value,
-    //         address: address.value,
-    //         zipCode: zipCode.value,
-    //         city: city.value,
-    //         country: country.value,
-    //     }
-    // })
+    await useFetch(`/api/prisma/address/add-user-address`, {
+        method: 'POST',
+        body: {
+            userId: user.value.id,
+            name: contactName.value,
+            address: address.value,
+            zipCode: zipCode.value,
+            city: city.value,
+            country: country.value,
+        }
+    })
 
     isWorking.value = false
 

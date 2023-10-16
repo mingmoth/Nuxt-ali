@@ -135,10 +135,10 @@ import MainLayout from '~/layouts/MainLayout.vue';
 import CheckoutItem from '~/components/CheckoutItem.vue';
 import { useUserStore } from '~/stores/user';
 const userStore = useUserStore()
-// const user = useSupabaseUser()
+const user = useSupabaseUser()
 const route = useRoute()
 
-// definePageMeta({ middleware: "auth" })
+definePageMeta({ middleware: "auth" })
 
 let stripe = null
 let elements = null
@@ -156,16 +156,10 @@ onBeforeMount(async () => {
 
     total.value = userStore.checkout.reduce((acc, item) => acc + item.price, 0)
     if (user.value) {
-        currentAddress.value = await useFetch(`/api/prisma/get-address-by-user/${user.value.id}`)
+        currentAddress.value = await useFetch(`/api/prisma/address/get/${ user.value.id }`)
         setTimeout(() => userStore.isLoading = false, 200)
     }
 })
-
-// watchEffect(() => {
-//     if (route.fullPath == '/checkout' && !user.value) {
-//         return navigateTo('/auth')
-//     }
-// })
 
 onMounted(async () => {
     isProcessing.value = true
@@ -175,11 +169,11 @@ onMounted(async () => {
     })
 })
 
-watch(() => total.value, () => {
-    if (total.value > 0) {
-        stripeInit()
-    }
-})
+// watch(() => total.value, () => {
+//     if (total.value > 0) {
+//         stripeInit()
+//     }
+// })
 
 // const stripeInit = async () => {
 //     const runtimeConfig = useRuntimeConfig()

@@ -8,4 +8,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (!user.value && to.fullPath == '/checkout') {
         return navigateTo('/auth')
     }
+
+    if (!user.value && to.fullPath == '/address') {
+        return navigateTo('/auth')
+    }
 })
