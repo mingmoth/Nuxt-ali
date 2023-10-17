@@ -13,7 +13,6 @@
 
                     <div v-if="!user" class="flex text-center">
                         <NuxtLink
-                            v-if="!user"
                             to="/auth"
                             class="
                                 bg-[#FD374F]
@@ -81,7 +80,9 @@
                                 p-1.5
                                 rounded-full
                                 mt-4
+                                disabled:bg-[#FEEEEF]
                             "
+                            :disabled="totalPriceComputed() <= 0"
                         >
                             Checkout
                         </button>
@@ -114,11 +115,11 @@
 </template>
 
 <script setup>
-import { toRaw, unref } from 'vue';
+import { toRaw } from 'vue';
 import MainLayout from '~/layouts/MainLayout.vue';
 import { useUserStore } from '~/stores/user';
 const userStore = useUserStore()
-// const user = useSupabaseUser()
+const user = useSupabaseUser()
 
 const cards = ref([
     'visa.png',
