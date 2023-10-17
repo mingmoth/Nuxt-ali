@@ -13,6 +13,7 @@
 
                     <div v-if="!user" class="flex text-center">
                         <NuxtLink
+                            v-if="!user"
                             to="/auth"
                             class="
                                 bg-[#FD374F]
