@@ -129,7 +129,7 @@
                                 class="p-1"
                             >
                                 <NuxtLink
-                                    :to="`/item/${item.id}`"
+                                    :to="`/product/${item.id}`"
                                     class="flex items-center justify-between w-full cursor-pointer hover:bg-gray-100"
                                 >
                                     <div class="flex items-center">
@@ -218,22 +218,23 @@ function signOut() {
     return navigateTo('/')
 }
 
-// const searchByName = useDebounce(async () => {
-//     isSearching.value = true
-//     items.value = await useFetch(`/api/prisma/search-by-name/${searchItem.value}`)
-//     isSearching.value = false
-// }, 100)
+const searchByName = useDebounce(async () => {
+    isSearching.value = true
+    items.value = await useFetch(`/api/prisma/product/search/${searchItem.value}`)
+    isSearching.value = false
+}, 500)
 
-// watch(() => searchItem.value, async () => {
-//     if (!searchItem.value) {
-//         setTimeout(() => {
-//             items.value = ''
-//             isSearching.value = false
-//             return
-//         }, 500)
-//     }
-//     searchByName()
-// })
+watch(() => searchItem.value, async () => {
+    if (!searchItem.value.trim()) {
+        setTimeout(() => {
+            items.value = ''
+            isSearching.value = false
+            return
+        }, 500)
+        return
+    }
+    searchByName()
+})
 </script>
 
 <script>
