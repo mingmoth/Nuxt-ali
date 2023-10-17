@@ -15,5 +15,17 @@ export default defineNuxtConfig({
       callback: '/',
       exclude: [],
     }
+  },
+  runtimeConfig: {
+    public: {
+      stripePk: process.env.STRIPE_PK_KEY
+    }
+  },
+  app: {
+    head: {
+      script: [
+        { src: 'https://js.stripe.com/v3/', defer: true }
+      ],
+    }
   }
 })
