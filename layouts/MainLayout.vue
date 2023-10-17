@@ -74,7 +74,7 @@
                             </li>
                             <li
                                 v-if="user"
-                                @click="client.auth.signOut()"
+                                @click="signOut"
                                 class="text-[13px] py-2 px-4 w-full hover:bg-gray-200"
                             >
                                 Sign out
@@ -212,6 +212,11 @@ let isCartHover = ref(false)
 let isSearching = ref(false)
 let searchItem = ref('')
 let items = ref(null)
+
+function signOut() {
+    client.auth.signOut()
+    return navigateTo('/')
+}
 
 // const searchByName = useDebounce(async () => {
 //     isSearching.value = true
