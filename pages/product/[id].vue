@@ -91,7 +91,8 @@ const userStore = useUserStore()
 
 const route = useRoute()
 
-let currentImage = ref(null)
+let currentImage = ref('')
+let product = ref(null);
 
 const images = ref([
     '',
@@ -102,16 +103,15 @@ const images = ref([
     'https://picsum.photos/id/144/300/300',
 ])
 
-const { data: product } = await useFetch(`/api/prisma/product/${route.params.id}`, {
-    server: true,
-})
-
-watchEffect(() => {
-    if (product.value) {
-        currentImage.value = product.value.url
-        images.value[0] = product.value.url
-        userStore.isLoading = false
-    }
+onBeforeMount(async () => {
+    const { data } = await useFetch(`/api/prisma/product/${route.params.id}`, {
+        onResponse(context) {
+            product.value = context.response._data
+            currentImage.value = product.value.url
+            images.value[0] = product.value.url
+            userStore.isLoading = false
+        },
+    })
 })
 
 const isInCart = computed(() => {

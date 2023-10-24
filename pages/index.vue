@@ -24,13 +24,16 @@
 </template>
 
 <script setup>
+import { useUserStore } from '~/stores/user';
 // components
 import MainLayout from '../layouts/MainLayout.vue';
 import ProductCard from '../components/ProductCard.vue';
 import LoadingProductCard from '../components/loading/LoadingProductCard.vue'
 
-let products = ref(null)
-let isLoading = ref(true)
+const userStore = useUserStore();
+
+let products = ref(null);
+let isLoading = ref(true);
 
 // https://stackoverflow.com/questions/76287288/usefetch-response-value-not-accessible
 onBeforeMount(async () => {
@@ -40,6 +43,7 @@ onBeforeMount(async () => {
         },
     })
     isLoading.value = false
+    userStore.isLoading = false
 })
 
 </script>

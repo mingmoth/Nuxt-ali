@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/auth',
       callback: '/',
-      exclude: [],
+      exclude: ['/product/*', '/cart'],
     }
   },
   runtimeConfig: {
