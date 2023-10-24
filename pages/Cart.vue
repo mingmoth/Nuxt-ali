@@ -82,9 +82,9 @@
                                 mt-4
                                 disabled:bg-[#FEEEEF]
                             "
-                            :disabled="totalPriceComputed() <= 0"
+                            :disabled="totalPriceComputed() <= 0 && user"
                         >
-                            Checkout
+                            {{ user ? 'Checkout' : 'Sign In' }}
                         </button>
                     </div>
 
@@ -128,6 +128,14 @@ const cards = ref([
     'applepay.png',
 ])
 
+watchEffect(
+    () => {
+        if(userStore.cart.length) {
+            userStore.isLoading = false;
+        }
+    }
+)
+
 const selectedRadioFunc = (product) => {
     userStore.cart.forEach(item => {
         if(product.id === item.id) {
@@ -155,6 +163,10 @@ function totalPriceComputed () {
 }
 
 const goToCheckout = () => {
+    if(!user) {
+        return navigateTo('/auth')
+    }
+
     let ids = []
     userStore.checkout = []
 
